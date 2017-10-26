@@ -1,11 +1,11 @@
 
-var debug = require('../')('http')
+var debug = require('../../')('http')
   , http = require('http')
   , name = 'My App';
 
 // fake app
 
-debug('booting %s', name);
+debug('booting %o', name);
 
 http.createServer(function(req, res){
   debug(req.method + ' ' + req.url);
