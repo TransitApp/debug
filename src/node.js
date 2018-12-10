@@ -17,6 +17,24 @@ exports.load = load;
 exports.useColors = useColors;
 
 /**
+ * Allow for dynamic debug level change
+ */
+let envDebug = '';
+let isEnablingAll = true;
+process.on('SIGUSR2', function() {
+	if (isEnablingAll) {
+		envDebug = module.exports.disable();
+		module.exports.enable('*');
+		console.log("Changing debug level to: *");
+	} else {
+		console.log("Changing debug level to: " + envDebug);
+		module.exports.disable();
+		module.exports.enable(envDebug);
+	}
+	isEnablingAll = !isEnablingAll;
+});
+
+/**
  * Colors.
  */
 
